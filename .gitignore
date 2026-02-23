@@ -1,0 +1,4 @@
+grafana-terraform/.terraform
+grafana-terraform/.terraform.lock.hcl
+grafana-terraform/terraform.tfstate
+grafana-terraform/terraform.tfstate.backup
