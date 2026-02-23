@@ -1,0 +1,48 @@
+server:
+  port: ${SERVICE_HTTP_PORT:8080}
+
+spring:
+  application:
+    name: order-service
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+      base-path: /actuator
+    enabled-by-default: true
+
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+    metrics:
+      enabled: true
+
+  metrics:
+    enable:
+      jvm: true
+      http: true
+      process: true
+      system: true
+
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+
+      percentiles:
+        http.server.requests: [ 0.5, 0.95, 0.99 ]
+
+    export:
+      prometheus:
+        enabled: true
+        step: 1m
+        descriptions: true
+
+    web:
+      server:
+        request:
+          autotime:
+            enabled: true
+          metric-name: http.server.requests
