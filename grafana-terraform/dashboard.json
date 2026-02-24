@@ -77,7 +77,7 @@
           "refId": "A"
         }
       ],
-      "title": "Количество созданных заказов",
+      "title": "Created orders count (24h)",
       "type": "stat"
     },
     {
