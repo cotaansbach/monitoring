@@ -4,6 +4,7 @@ import com.cotaansbah.orderservice.dto.OrderDto;
 import io.micrometer.core.instrument.MeterRegistry;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
@@ -51,6 +53,10 @@ public class OrderController {
         orderDto.setCreateDateTimeMsk(LocalDateTime.now(ZoneId.of("Europe/Moscow")));
         ORDER_DTOS.add(orderDto);
         meterRegistry.counter(CREATED_ORDERS_COUNTER_NAME).increment();
+        if (Math.random() < 0.3) {
+            log.error("Internal server error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
     }
 
